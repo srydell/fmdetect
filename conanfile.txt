@@ -1,0 +1,9 @@
+[requires]
+Catch2/2.9.1@catchorg/stable
+google-benchmark/1.4.1@mpusz/stable
+CTRE/v2.6.4@ctre/stable
+
+[generators]
+cmake
+cmake_find_package
+cmake_paths
