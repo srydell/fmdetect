@@ -37,9 +37,10 @@ include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
 
 add_executable(get_special_filetype
                src/get_special_filetype.cpp
+               include/filetypeMatcher.h
                include/get_special_filetype.h
-               include/patterns.h
-               include/matchers.h)
+               include/matchers.h
+               include/patterns.h)
 target_include_directories(get_special_filetype PRIVATE include)
 target_link_libraries(get_special_filetype
                       PRIVATE project_warnings project_options)

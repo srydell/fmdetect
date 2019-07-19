@@ -1,3 +1,5 @@
+#pragma once
+
 #include "ctre.hpp"
 #include "patterns.h"
 #include <string_view>
