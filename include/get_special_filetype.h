@@ -9,17 +9,16 @@
 
 template <typename T>
 std::string parseFile(std::string_view filename, T functions) {
-	std::string output = "hi";
 	std::string line;
 	std::ifstream infile(std::string(filename).c_str());
 	while (std::getline(infile, line)) {
 		std::cout << "Process line: " << line << '\n';
-		if (std::any_of(
-		        functions.begin(), functions.end(),
-		        [&line](const auto &function) { return function(line); })) {
-			return output;
+		for (auto &f : functions) {
+			if (auto ft = f(line)) {
+				return ft.value();
+			}
 		}
 	}
-	return "Found nothing.";
+	return "";
 }
 
