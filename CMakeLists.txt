@@ -23,6 +23,7 @@ include(SetupConan)
 get_conan_helper()
 # Require that conan is installed
 conan_check(REQUIRED)
+conan_setup_remotes()
 # Install dependencies (defined in conanfile.{txt,py})
 conan_cmake_run(CONANFILE
                 conanfile.txt

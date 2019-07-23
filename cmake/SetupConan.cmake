@@ -13,3 +13,17 @@ function(get_conan_helper)
   endif()
   include(${CMAKE_BINARY_DIR}/conan.cmake)
 endfunction(get_conan_helper)
+
+function(conan_setup_remotes)
+  # For clara
+  conan_add_remote(NAME
+                   bincrafters
+                   URL
+                   https://api.bintray.com/conan/bincrafters/public-conan)
+
+  # For google benchmark
+  conan_add_remote(NAME
+                   conan-mpusz
+                   URL
+                   https://api.bintray.com/conan/mpusz/conan-mpusz)
+endfunction()
