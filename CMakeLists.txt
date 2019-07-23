@@ -49,7 +49,8 @@ set_target_properties(get_special_filetype
                                  ON
                                  CXX_EXTENSIONS
                                  OFF)
-target_link_libraries(get_special_filetype PRIVATE CONAN_PKG::CTRE)
+target_link_libraries(get_special_filetype
+                      PRIVATE CONAN_PKG::CTRE CONAN_PKG::clara)
 
 option(BUILD_TESTING "Build the testing tree" ON)
 if(BUILD_TESTING AND (PROJECT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR))
