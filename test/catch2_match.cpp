@@ -30,12 +30,18 @@ TEST_CASE("isCatch2 fails on simple string not matching correct include",
 	REQUIRE_FALSE(cpp::isCatch2("Jul 18, 2019"));
 }
 
-TEST_CASE("Run over Catch2 test files", "[isCatch2]") {
+TEST_CASE("Run over test files", "[isCatch2]") {
 	std::string expected_ft = "catch2";
 	auto s = std::vector<FiletypeMatcher>(
 	    {FiletypeMatcher(expected_ft, cpp::isCatch2)});
 
+	// Catch2 files
 	for (auto &filename : testfiles::catch2) {
 		REQUIRE(parseFile(filename, s) == expected_ft);
+	}
+
+	// Gtest files
+	for (auto &filename : testfiles::gtest) {
+		REQUIRE_FALSE(parseFile(filename, s) == expected_ft);
 	}
 }

@@ -27,12 +27,18 @@ TEST_CASE("isGtest fails on simple string not matching correct include",
 	REQUIRE_FALSE(cpp::isGtest("Jul 18, 2019"));
 }
 
-TEST_CASE("Run over Gtest test files", "[isGtest]") {
+TEST_CASE("Run over test files", "[isGtest]") {
 	std::string expected_ft = "gtest";
 	auto s = std::vector<FiletypeMatcher>(
 	    {FiletypeMatcher(expected_ft, cpp::isGtest)});
 
+	// Gtest files
 	for (auto &filename : testfiles::gtest) {
 		REQUIRE(parseFile(filename, s) == expected_ft);
+	}
+
+	// Catch2 files
+	for (auto &filename : testfiles::catch2) {
+		REQUIRE_FALSE(parseFile(filename, s) == expected_ft);
 	}
 }
