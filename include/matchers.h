@@ -12,7 +12,7 @@ static constexpr auto gtest_pattern =
     ctll::fixed_string{"#include ?(<|\")(gtest/)?gtest.h(>|\")\\s*?"};
 
 static constexpr auto benchmark_pattern =
-    ctll::fixed_string{"#include ?(<|\")(catch2/)?catch.hpp(>|\")\\s*?"};
+    ctll::fixed_string{"#include ?(<|\")(benchmark/)?benchmark.h(>|\")\\s*?"};
 } // namespace patterns
 
 constexpr bool isCatch2(std::string_view sv) noexcept {

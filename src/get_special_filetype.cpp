@@ -3,11 +3,10 @@
 #include "matchers.h"
 #include <array>
 
-int main() {
-	auto p1 = FiletypeMatcher("catch2", cpp::isCatch2);
-	auto p2 = FiletypeMatcher("gtest", cpp::isGtest);
-	std::array<FiletypeMatcher, 2> s = {p1, p2};
-	std::cout << parseFile("test/testfiles/catch2/010-TestCase.cpp", s) << '\n';
-	std::cout << parseFile("test/testfiles/gtest/sample1_unittest.cc", s)
-	          << '\n';
+int main(int argc, char **argv) {
+	std::cout << "You have entered " << argc << " arguments:"
+	          << "\n";
+
+	for (int i = 1; i < argc; ++i)
+		std::cout << argv[i] << "\n";
 }
