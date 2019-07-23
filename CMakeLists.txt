@@ -58,12 +58,25 @@ if(BUILD_TESTING AND (PROJECT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR))
   endif()
   # enable_testing()
 
+  # Generate helpers for the tests
+  find_package(Python REQUIRED)
+  add_custom_target(
+    gen_filepaths ALL
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    COMMAND ${Python_EXECUTABLE} test/gen_filepaths.py
+    COMMENT
+      "Running command: ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/gen_filepaths.py"
+    )
+
   # Helper function
   function(setup_ctre_test ctre_test_target)
     target_link_libraries(${ctre_test_target}
                           PRIVATE project_options project_warnings
                                   CONAN_PKG::CTRE)
     target_include_directories(${ctre_test_target} PRIVATE include)
+
+    add_dependencies(${ctre_test_target} gen_filepaths)
+    target_include_directories(${ctre_test_target} PRIVATE test/test_include)
   endfunction()
 
   include(Catch2Helpers)

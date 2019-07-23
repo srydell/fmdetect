@@ -16,3 +16,4 @@
 !include
 !src
 !test
+test/test_include
