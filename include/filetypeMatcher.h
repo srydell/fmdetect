@@ -8,7 +8,7 @@
 #include <string>
 
 struct FiletypeMatcher {
-	FiletypeMatcher(std::string_view ft, decltype(cpp::matchers::isCatch2) &m)
+	FiletypeMatcher(std::string_view ft, decltype(cpp::isCatch2) &m)
 	    : m_filetype(std::string(ft)), m_isFiletype(m) {}
 
 	std::optional<std::string> operator()(std::string_view text) const {
@@ -19,5 +19,5 @@ struct FiletypeMatcher {
 	}
 
 	std::string m_filetype;
-	decltype(cpp::matchers::isCatch2) &m_isFiletype;
+	decltype(cpp::isCatch2) &m_isFiletype;
 };

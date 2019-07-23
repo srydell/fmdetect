@@ -107,12 +107,12 @@ else()
     # filesystem
     target_link_libraries(project_options INTERFACE stdc++fs)
   elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+    target_compile_options(project_warnings INTERFACE -Wduplicate-enum)
     # If clang with libc++ no filesystem is required
     if(LIBCPP)
       target_compile_options(project_options INTERFACE -stdlib=libc++)
     else()
       target_link_libraries(project_options INTERFACE stdc++fs)
     endif()
-    target_compile_options(project_warnings INTERFACE -Wduplicate-enum)
   endif()
 endif()
