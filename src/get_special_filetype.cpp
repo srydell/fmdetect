@@ -1,7 +1,4 @@
 #include "get_special_filetype.h"
-#include "filetypeMatcher.h"
-#include "matchers.h"
-#include <array>
 #include <clara.hpp>
 
 int main(int argc, char **argv) {
@@ -9,8 +6,7 @@ int main(int argc, char **argv) {
 	std::string path;
 	bool showHelp = false;
 	auto cli = clara::Help(showHelp) |
-	           clara::Opt(preliminaryFiletype,
-	                      "preliminaryFiletype")["-ft"]["--filetype"](
+	           clara::Opt(preliminaryFiletype, "filetype")["-ft"]["--filetype"](
 	               "What is the current filetype? E.g. cpp") |
 	           clara::Opt(path, "path")["-p"]["--path"](
 	               "Path to the file being examined.");
