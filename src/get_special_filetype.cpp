@@ -24,7 +24,8 @@ int main(int argc, char **argv) {
 		return EXIT_SUCCESS;
 	}
 
-	if (auto specialFiletype = getSpecialFiletype(preliminaryFiletype, path)) {
+	if (auto specialFiletype =
+	        SpecialFiletype::getSpecialFiletype(preliminaryFiletype, path)) {
 		std::cout << specialFiletype.value() << '\n';
 	}
 }

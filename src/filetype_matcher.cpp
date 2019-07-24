@@ -6,8 +6,10 @@
 #include <string>
 #include <string_view>
 
+namespace SpecialFiletype {
 std::optional<std::string> getSpecialFiletype(std::string_view initialFiletype,
                                               std::string_view filename) {
+	using Helpers::FiletypeMatcher;
 	if (initialFiletype == "cpp") {
 		auto possibleMatchers = std::array<FiletypeMatcher, 3>(
 		    {FiletypeMatcher("catch2", cpp::isCatch2),
@@ -17,3 +19,4 @@ std::optional<std::string> getSpecialFiletype(std::string_view initialFiletype,
 	}
 	return {};
 }
+} // namespace SpecialFiletype

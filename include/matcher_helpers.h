@@ -8,6 +8,7 @@
 #include <string>
 #include <string_view>
 
+namespace Helpers {
 struct FiletypeMatcher {
 	FiletypeMatcher(std::string_view ft, decltype(cpp::isCatch2) &m)
 	    : m_filetype(std::string(ft)), m_isFiletype(m) {}
@@ -24,16 +25,20 @@ struct FiletypeMatcher {
 };
 
 template <typename MatchFunctions>
-std::string parseFile(std::string_view filename, MatchFunctions functions) {
+std::optional<std::string> parseFile(std::string_view filename,
+                                     MatchFunctions functions) {
 	std::string line;
 	std::ifstream infile(std::string(filename).c_str());
-	while (std::getline(infile, line)) {
-		for (auto &f : functions) {
-			if (auto ft = f(line)) {
-				return ft.value();
+	if (infile.is_open()) {
+		while (std::getline(infile, line)) {
+			for (auto &f : functions) {
+				if (auto ft = f(line)) {
+					return ft.value();
+				}
 			}
 		}
 	}
-	return "";
+	return {};
 }
 
+} // namespace Helpers
