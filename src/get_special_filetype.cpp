@@ -1,12 +1,13 @@
-#include "get_special_filetype.h"
+#include "filetype_matcher.h"
 #include <clara.hpp>
+#include <iostream>
 
 int main(int argc, char **argv) {
 	std::string preliminaryFiletype;
 	std::string path;
 	bool showHelp = false;
 	auto cli = clara::Help(showHelp) |
-	           clara::Opt(preliminaryFiletype, "filetype")["-ft"]["--filetype"](
+	           clara::Opt(preliminaryFiletype, "filetype")["-f"]["--filetype"](
 	               "What is the current filetype? E.g. cpp") |
 	           clara::Opt(path, "path")["-p"]["--path"](
 	               "Path to the file being examined.");
@@ -18,11 +19,12 @@ int main(int argc, char **argv) {
 		return EXIT_FAILURE;
 	}
 
-	if (showHelp) {
+	if (showHelp || path.empty() || preliminaryFiletype.empty()) {
 		std::cout << cli << '\n';
 		return EXIT_SUCCESS;
 	}
 
-	std::cout << "Filetype is: " << preliminaryFiletype << '\n';
-	std::cout << "Path is: " << path << '\n';
+	if (auto specialFiletype = getSpecialFiletype(preliminaryFiletype, path)) {
+		std::cout << specialFiletype.value() << '\n';
+	}
 }

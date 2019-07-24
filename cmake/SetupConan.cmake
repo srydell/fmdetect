@@ -31,6 +31,7 @@ function(conan_setup_remotes)
                    conan-mpusz
                    URL
                    https://api.bintray.com/conan/mpusz/conan-mpusz)
+
   set(_conan_has_set_remotes
       TRUE
       CACHE INTERNAL

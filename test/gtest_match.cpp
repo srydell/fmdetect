@@ -1,6 +1,5 @@
-#include "filetypeMatcher.h"
 #include "generated_filepaths.h"
-#include "get_special_filetype.h"
+#include "matcher_helpers.h"
 #include "matchers.h"
 #include <catch2/catch.hpp>
 

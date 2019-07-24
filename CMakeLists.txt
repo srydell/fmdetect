@@ -36,11 +36,17 @@ conan_cmake_run(CONANFILE
 # NOTE: Relies on cmake_paths generator
 include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
 
-add_executable(get_special_filetype
-               src/get_special_filetype.cpp
-               include/filetypeMatcher.h
-               include/get_special_filetype.h
-               include/matchers.h)
+add_library(filetype_matcher src/filetype_matcher.cpp)
+target_include_directories(filetype_matcher PRIVATE include)
+target_link_libraries(filetype_matcher PRIVATE project_warnings project_options)
+set_target_properties(filetype_matcher
+                      PROPERTIES CXX_STANDARD_REQUIRED
+                                 ON
+                                 CXX_EXTENSIONS
+                                 OFF)
+target_link_libraries(filetype_matcher PRIVATE CONAN_PKG::CTRE)
+
+add_executable(get_special_filetype src/get_special_filetype.cpp)
 target_include_directories(get_special_filetype PRIVATE include)
 target_link_libraries(get_special_filetype
                       PRIVATE project_warnings project_options)
@@ -50,7 +56,7 @@ set_target_properties(get_special_filetype
                                  CXX_EXTENSIONS
                                  OFF)
 target_link_libraries(get_special_filetype
-                      PRIVATE CONAN_PKG::CTRE CONAN_PKG::clara)
+                      PRIVATE CONAN_PKG::CTRE CONAN_PKG::clara filetype_matcher)
 
 option(BUILD_TESTING "Build the testing tree" ON)
 if(BUILD_TESTING AND (PROJECT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR))
