@@ -5,7 +5,7 @@
 
 namespace cpp {
 namespace patterns {
-static constexpr auto catch_pattern =
+static constexpr auto catch2_pattern =
     ctll::fixed_string{"#include ?(<|\")(catch2/)?catch.hpp(>|\")\\s*?"};
 
 static constexpr auto gtest_pattern =
@@ -16,7 +16,7 @@ static constexpr auto benchmark_pattern =
 } // namespace patterns
 
 constexpr bool isCatch2(std::string_view sv) noexcept {
-	return ctre::match<patterns::catch_pattern>(sv);
+	return ctre::match<patterns::catch2_pattern>(sv);
 }
 
 constexpr bool isGtest(std::string_view sv) noexcept {
