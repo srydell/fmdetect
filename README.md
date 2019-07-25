@@ -1,6 +1,6 @@
 # get_special_filetype - A `constexpr` filetype matcher #
 
-`get_special_filetype` is a **very** fast way of matching contents of a file to a string. It can for example be used to identify usage of a library in a file to set specific options in an editor (example with vim below).
+`get_special_filetype` is a dead simple, and **very** fast way of matching contents of a file to a string. It can for example be used to identify usage of a library in a file to set specific options in an editor (example with vim below).
 
 ## Installation ##
 
@@ -21,14 +21,14 @@ catch2
 $ get_special_filetype --path README.md --filetype cpp
 ```
 
-This can be used in a `vimscript`
+This can be called from a `vimscript`
 
 ```vim
 function! set_special_filetype() abort
   let ft_binary = expand('~/bin/get_special_filetype')
   if executable(ft_binary)
     " Search the current file for extra filetypes
-    let extra_ft = system(ft_binary . ' --path ' . expand('%:p') . ' --filetype cpp')
+    let extra_ft = system(ft_binary . ' --path ' . expand('%:p') . ' --filetype ' . &filetype)
     if len(extra_ft) != 0
       " Set the filetype
       execute('setlocal filetype=' . &filetype . ' . extra_ft)
@@ -39,7 +39,7 @@ endfunction
 
 augroup extra_filetypes
   autocmd!
-  " Look for extra filetypes.
+  " Look for and set extra filetypes.
   " Ex: Filetype = cpp
   "     This might set the filetype as 'cpp.catch2'
   autocmd Filetype cpp call set_special_filetype()
