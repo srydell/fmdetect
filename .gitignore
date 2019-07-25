@@ -12,6 +12,7 @@
 !conanfile.txt
 
 # Directories
+!bin
 !cmake
 !include
 !src
