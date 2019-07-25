@@ -6,13 +6,6 @@ project(get_special_filetype VERSION 0.1 LANGUAGES CXX)
 # autocompletion
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# If no build type is provided explicitly, set it to Release
-if(NOT EXISTS ${CMAKE_BINARY_DIR}/CMakeCache.txt)
-  if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "" FORCE)
-  endif()
-endif()
-
 # Add custom scripts
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
