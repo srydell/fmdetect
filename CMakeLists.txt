@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(special_filetypes VERSION 0.1 LANGUAGES CXX)
+project(get_special_filetype VERSION 0.1 LANGUAGES CXX)
 
 # Export compile flags to compile_commands.json database. Useful for linters and
 # autocompletion
