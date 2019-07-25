@@ -14,8 +14,7 @@ int main(int argc, char **argv) {
 
 	auto result = cli.parse(clara::Args(argc, argv));
 	if (!result) {
-		std::cerr << "Error in command line: " << result.errorMessage()
-		          << std::endl;
+		std::cerr << "Error in command line: " << result.errorMessage() << '\n';
 		return EXIT_FAILURE;
 	}
 
