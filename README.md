@@ -1,6 +1,6 @@
 # get_special_filetype - A `constexpr` filetype matcher #
 
-`get_special_filetype` is a **very** fast way of matching contents of a file to a string. It can for example be used to identify usage of a library in a file to set specific options in an editor (example for vim below).
+`get_special_filetype` is a **very** fast way of matching contents of a file to a string. It can for example be used to identify usage of a library in a file to set specific options in an editor (example with vim below).
 
 ## Installation ##
 
