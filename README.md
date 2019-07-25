@@ -74,7 +74,7 @@ where options are:
 ```shell
 $ git clone https://github.com/srydell/get_special_filetype.git && cd get_special_filetype
 $ mkdir build
-$ cmake -S . -B build -D CMAKE_CXX_COMPILER=$(command -v clang++)
+$ cmake -S . -B build -D CMAKE_BUILD_TYPE=Release -D CMAKE_CXX_COMPILER=$(command -v clang++)
 $ cmake --build build
 $ cp build/bin/get_special_filetype <wherever you have binaries>
 ```
