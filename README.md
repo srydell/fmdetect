@@ -31,7 +31,7 @@ function! set_special_filetype() abort
     let extra_ft = system(ft_binary . ' --path ' . expand('%:p') . ' --filetype ' . &filetype)
     if len(extra_ft) != 0
       " Set the filetype
-      execute('setlocal filetype=' . &filetype . ' . extra_ft)
+      execute('setlocal filetype=' . &filetype . '.' . extra_ft)
     endif
   endif
 endfunction
