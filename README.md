@@ -1,6 +1,6 @@
-# get_special_filetype - A `constexpr` filetype matcher #
+# ftdetect - A `constexpr` filetype matcher #
 
-`get_special_filetype` is a dead simple and **very** fast way of matching contents of a file to a string. It can for example be used to identify usage of a library in a file to set specific options in an editor (example with vim below).
+`ftdetect` is a dead simple and **very** fast way of matching contents of a file to a string, specifically meant for filetype detection. It can for example be used to identify usage of a library in a file to set specific options in an editor (example with vim below).
 
 ## Installation ##
 
@@ -10,28 +10,28 @@ If your OS is not in there, you can easily build it for your platform by followi
 
 ## Usage ##
 
-`get_special_filetype` is meant to be used from a script but can be used from the command line as well:
+`ftdetect` is meant to be used from a script but can be used from the command line as well:
 
 ```shell
 # Found usage of the catch2 library
-$ get_special_filetype --path test/testfiles/catch2/010-TestCase.cpp --filetype cpp
+$ ftdetect --path test/testfiles/catch2/010-TestCase.cpp --filetype cpp
 catch2
 
 # No output since there is nothing in README.md that matches any of the cpp regex values
-$ get_special_filetype --path README.md --filetype cpp
+$ ftdetect --path README.md --filetype cpp
 ```
 
 This can be called from a `vimscript`
 
 ```vim
 function! set_special_filetype() abort
-  let ft_binary = expand('~/bin/get_special_filetype')
+  let ft_binary = expand('~/bin/ftdetect')
   if executable(ft_binary)
     " Search the current file for extra filetypes
     let extra_ft = system(ft_binary . ' --path ' . expand('%:p') . ' --filetype ' . &filetype)
     if len(extra_ft) != 0
       " Set the filetype
-      execute('setlocal filetype=' . &filetype . '.' . extra_ft)
+      execute('setlocal filetype+=.' . extra_ft)
     endif
   endif
 endfunction
@@ -51,9 +51,9 @@ augroup END
 You can always check the help output.
 
 ```shell
-$ get_special_filetype --help
+$ ftdetect --help
 usage:
-  get_special_filetype  options
+  ftdetect  options
 
 where options are:
   -?, -h, --help               display usage information
@@ -72,11 +72,11 @@ where options are:
 ### Building ###
 
 ```shell
-$ git clone https://github.com/srydell/get_special_filetype.git && cd get_special_filetype
+$ git clone https://github.com/srydell/ftdetect.git && cd ftdetect
 $ mkdir build
 $ cmake -S . -B build -D CMAKE_BUILD_TYPE=Release -D CMAKE_CXX_COMPILER=$(command -v clang++)
 $ cmake --build build
-$ cp build/bin/get_special_filetype <wherever you have binaries>
+$ cp build/bin/ftdetect <wherever you have binaries>
 ```
 
 ## Contributing ##

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(get_special_filetype VERSION 0.1 LANGUAGES CXX)
+project(ftdetect VERSION 0.1 LANGUAGES CXX)
 
 # Export compile flags to compile_commands.json database. Useful for linters and
 # autocompletion
@@ -39,16 +39,15 @@ set_target_properties(filetype_matcher
                                  OFF)
 target_link_libraries(filetype_matcher PRIVATE CONAN_PKG::CTRE)
 
-add_executable(get_special_filetype src/get_special_filetype.cpp)
-target_include_directories(get_special_filetype PRIVATE include)
-target_link_libraries(get_special_filetype
-                      PRIVATE project_warnings project_options)
-set_target_properties(get_special_filetype
+add_executable(ftdetect src/ftdetect.cpp)
+target_include_directories(ftdetect PRIVATE include)
+target_link_libraries(ftdetect PRIVATE project_warnings project_options)
+set_target_properties(ftdetect
                       PROPERTIES CXX_STANDARD_REQUIRED
                                  ON
                                  CXX_EXTENSIONS
                                  OFF)
-target_link_libraries(get_special_filetype
+target_link_libraries(ftdetect
                       PRIVATE CONAN_PKG::CTRE CONAN_PKG::clara filetype_matcher)
 
 option(BUILD_TESTING "Build the testing tree" ON)
