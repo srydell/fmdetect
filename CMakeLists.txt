@@ -88,20 +88,41 @@ if(BUILD_TESTING AND (PROJECT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR))
   create_catch2_test(TARGET
                      catch2_match
                      SOURCES
-                     test/catch2_match.cpp)
-  setup_ctre_test(catch2_match)
+                     test/catch2_match.cpp
+                     INCLUDE
+                     include
+                     test/test_include
+                     LINK_LIBRARIES
+                     project_options
+                     project_warnings
+                     CONAN_PKG::CTRE)
+  add_dependencies(catch2_match gen_filepaths)
 
   create_catch2_test(TARGET
                      gtest_match
                      SOURCES
-                     test/gtest_match.cpp)
-  setup_ctre_test(gtest_match)
+                     test/gtest_match.cpp
+                     INCLUDE
+                     include
+                     test/test_include
+                     LINK_LIBRARIES
+                     project_options
+                     project_warnings
+                     CONAN_PKG::CTRE)
+  add_dependencies(gtest_match gen_filepaths)
 
   create_catch2_test(TARGET
                      benchmark_match
                      SOURCES
-                     test/benchmark_match.cpp)
-  setup_ctre_test(benchmark_match)
+                     test/benchmark_match.cpp
+                     INCLUDE
+                     include
+                     test/test_include
+                     LINK_LIBRARIES
+                     project_options
+                     project_warnings
+                     CONAN_PKG::CTRE)
+  add_dependencies(benchmark_match gen_filepaths)
 endif()
 
 option(BUILD_BENCHMARKS "Build the benchmarks" OFF)

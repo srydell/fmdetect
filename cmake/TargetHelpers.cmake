@@ -15,6 +15,13 @@ function(create_target)
                         "${multiValues}"
                         ${ARGN})
 
+  if(NOT ARG_TARGET)
+    message(FATAL_ERROR "Must provide a target.")
+  endif()
+  if(NOT ARG_SOURCES)
+    message(FATAL_ERROR "Must provide sources.")
+  endif()
+
   if(ARG_IS_LIBRARY)
     add_library(${ARG_TARGET} ${ARG_SOURCES})
   else()
