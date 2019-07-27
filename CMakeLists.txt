@@ -28,27 +28,32 @@ conan_cmake_run(CONANFILE
                 missing)
 # NOTE: Relies on cmake_paths generator
 include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
+include(TargetHelpers)
 
-add_library(filetype_matcher src/filetype_matcher.cpp)
-target_include_directories(filetype_matcher PRIVATE include)
-target_link_libraries(filetype_matcher PRIVATE project_warnings project_options)
-set_target_properties(filetype_matcher
-                      PROPERTIES CXX_STANDARD_REQUIRED
-                                 ON
-                                 CXX_EXTENSIONS
-                                 OFF)
-target_link_libraries(filetype_matcher PRIVATE CONAN_PKG::CTRE)
+create_target(TARGET
+              filetype_matcher
+              IS_LIBRARY
+              SOURCES
+              src/filetype_matcher.cpp
+              INCLUDE
+              include
+              LINK_LIBRARIES
+              project_warnings
+              project_options
+              CONAN_PKG::CTRE)
 
-add_executable(ftdetect src/ftdetect.cpp)
-target_include_directories(ftdetect PRIVATE include)
-target_link_libraries(ftdetect PRIVATE project_warnings project_options)
-set_target_properties(ftdetect
-                      PROPERTIES CXX_STANDARD_REQUIRED
-                                 ON
-                                 CXX_EXTENSIONS
-                                 OFF)
-target_link_libraries(ftdetect
-                      PRIVATE CONAN_PKG::CTRE CONAN_PKG::clara filetype_matcher)
+create_target(TARGET
+              ftdetect
+              SOURCES
+              src/ftdetect.cpp
+              INCLUDE
+              include
+              LINK_LIBRARIES
+              project_warnings
+              project_options
+              CONAN_PKG::clara
+              CONAN_PKG::CTRE
+              filetype_matcher)
 
 option(BUILD_TESTING "Build the testing tree" ON)
 if(BUILD_TESTING AND (PROJECT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR))
