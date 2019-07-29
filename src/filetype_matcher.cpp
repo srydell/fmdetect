@@ -16,6 +16,10 @@ std::optional<std::string> getSpecialFiletype(std::string_view initialFiletype,
 		     FiletypeMatcher("gtest", cpp::isGtest),
 		     FiletypeMatcher("benchmark", cpp::isBenchmark)});
 		return parseFile(filename, possibleMatchers);
+	} else if (initialFiletype == "python") {
+		auto possibleMatchers = std::array<FiletypeMatcher, 1>(
+		    {FiletypeMatcher("unittest", python::isUnittest)});
+		return parseFile(filename, possibleMatchers);
 	}
 	return {};
 }

@@ -27,3 +27,18 @@ constexpr bool isBenchmark(std::string_view sv) noexcept {
 	return ctre::match<patterns::benchmark_pattern>(sv);
 }
 } // namespace cpp
+
+namespace python {
+namespace patterns {
+static constexpr auto unittest0_pattern =
+    ctll::fixed_string{"^import unittest( as (.*)?)?$"};
+
+static constexpr auto unittest1_pattern =
+    ctll::fixed_string{"^from unittest import (.*)?$"};
+} // namespace patterns
+
+constexpr bool isUnittest(std::string_view sv) noexcept {
+	return ctre::match<patterns::unittest0_pattern>(sv) ||
+	       ctre::match<patterns::unittest1_pattern>(sv);
+}
+} // namespace python

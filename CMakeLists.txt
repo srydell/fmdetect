@@ -123,6 +123,19 @@ if(BUILD_TESTING AND (PROJECT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR))
                      project_warnings
                      CONAN_PKG::CTRE)
   add_dependencies(benchmark_match gen_filepaths)
+
+  create_catch2_test(TARGET
+                     unittest_match
+                     SOURCES
+                     test/unittest_match.cpp
+                     INCLUDE
+                     include
+                     test/test_include
+                     LINK_LIBRARIES
+                     project_options
+                     project_warnings
+                     CONAN_PKG::CTRE)
+  add_dependencies(unittest_match gen_filepaths)
 endif()
 
 option(BUILD_BENCHMARKS "Build the benchmarks" OFF)
