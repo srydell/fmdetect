@@ -22,6 +22,24 @@ def add_includes(includes, lines):
     return lines
 
 
+def wrap_in_vector(vector_name, contents):
+    """Create an vector containing the contents
+       Ex:
+           std::vector<std::string> {vector_name} = {
+           "content0",
+           "content1",
+           };
+    :returns: wrapped contents
+    """
+    contents = [f'    "{content}",\n' for content in contents]
+    # Remove trailing ',' on the last input in array
+    contents[-1] = f"{contents[-1][:-2]}"
+
+    contents.insert(0, f"\nstd::vector<std::string> {vector_name} = " + "{\n")
+    contents.append("\n};\n\n")
+    return contents
+
+
 def wrap_in_array(array_name, contents):
     """Create an array containing the contents
        Ex:
@@ -57,6 +75,18 @@ def wrap_in_namespace(namespace, lines):
     return lines
 
 
+def concat_lists(list0, list1):
+    """Return concatenated version of the two lists
+
+    :list0: List - The first in the new list
+    :list1: List - The last in the new list
+    :returns: List - Concatenated list
+    """
+    for item in list1:
+        list0.append(item)
+    return list0
+
+
 def gen_filepaths():
     """Create and fill a header file with paths
     :returns: None
@@ -64,12 +94,15 @@ def gen_filepaths():
     pathlib.Path("test/test_include").mkdir(exist_ok=True)
     with open("test/test_include/generated_filepaths.h", "w") as header:
         lines = []
+        all_files = []
         for test_dir in pathlib.Path("test/testfiles/").glob("*"):
             test_files = [str(t) for t in pathlib.Path(test_dir).glob("*")]
+            all_files = concat_lists(all_files, test_files)
             test_name = test_dir.name
-            lines += wrap_in_array(test_name, test_files)
+            lines += wrap_in_vector(test_name, test_files)
+        lines += wrap_in_vector("all_files", all_files)
         lines = wrap_in_namespace("testfiles", lines)
-        lines = add_includes(["array", "string"], lines)
+        lines = add_includes(["vector", "string"], lines)
         header.writelines(lines)
 
 
