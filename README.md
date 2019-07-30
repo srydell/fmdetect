@@ -1,6 +1,6 @@
-# ftdetect - A `constexpr` filetype matcher #
+# ftdetecter - A `constexpr` filetype matcher #
 
-`ftdetect` is a dead simple and **very** fast way of matching contents of a file to a string, specifically meant for filetype detection. It can for example be used to identify usage of a library in a file to set specific options in an editor (example with vim below).
+`ftdetecter` is a dead simple and **very** fast way of matching contents of a file to a string, specifically meant for filetype detection. It can for example be used to identify usage of a library in a file to set specific options in an editor (example with vim below).
 
 ## Installation ##
 
@@ -10,22 +10,22 @@ If your OS is not in there, you can easily build it for your platform by followi
 
 ## Usage ##
 
-`ftdetect` is meant to be used from a script but can be used from the command line as well:
+`ftdetecter` is meant to be used from a script but can be used from the command line as well:
 
 ```shell
 # Found usage of the catch2 library
-$ ftdetect --path test/testfiles/catch2/010-TestCase.cpp --filetype cpp
+$ ftdetecter --path test/testfiles/catch2/010-TestCase.cpp --filetype cpp
 catch2
 
 # No output since there is nothing in README.md that matches any of the cpp regex values
-$ ftdetect --path README.md --filetype cpp
+$ ftdetecter --path README.md --filetype cpp
 ```
 
 This can be called from a `vimscript`
 
 ```vim
 function! set_special_filetype() abort
-  let ft_binary = expand('~/bin/ftdetect')
+  let ft_binary = expand('~/bin/ftdetecter')
   if executable(ft_binary)
     " Search the current file for extra filetypes
     let extra_ft = system(ft_binary . ' --path ' . expand('%:p') . ' --filetype ' . &filetype)
@@ -51,9 +51,9 @@ augroup END
 You can always check the help output.
 
 ```shell
-$ ftdetect --help
+$ ftdetecter --help
 usage:
-  ftdetect  options
+  ftdetecter  options
 
 where options are:
   -?, -h, --help               display usage information
@@ -72,11 +72,11 @@ where options are:
 ### Building ###
 
 ```shell
-$ git clone https://github.com/srydell/ftdetect.git && cd ftdetect
+$ git clone https://github.com/srydell/ftdetecter.git && cd ftdetecter
 $ mkdir build
 $ cmake -S . -B build -D CMAKE_BUILD_TYPE=Release -D CMAKE_CXX_COMPILER=$(command -v clang++)
 $ cmake --build build
-$ cp build/bin/ftdetect <wherever you have binaries>
+$ cp build/bin/ftdetecter <wherever you have binaries>
 ```
 
 ## Contributing ##
