@@ -23,8 +23,8 @@ int main(int argc, char **argv) {
 	           clara::Opt(preliminaryFiletype, "filetype")["-f"]["--filetype"](
 	               "What is the current filetype? E.g. cpp") |
 	           clara::Opt(paths, "paths")["-p"]["--paths"](
-	               "Path(s) to the file being examined. May be multiple "
-	               "separated by a comma (,).");
+	               "Path(s) to the file(s) being examined. "
+	               "May be multiple separated by a comma (,).");
 
 	auto result = cli.parse(clara::Args(argc, argv));
 	if (!result) {

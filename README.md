@@ -14,11 +14,11 @@ If your OS is not in there, you can easily build it for your platform by followi
 
 ```shell
 # Found usage of the catch2 library
-$ ftdetecter --path test/testfiles/catch2/010-TestCase.cpp --filetype cpp
+$ ftdetecter --paths test/testfiles/catch2/010-TestCase.cpp --filetype cpp
 catch2
 
 # No output since there is nothing in README.md that matches any of the cpp regex values
-$ ftdetecter --path README.md --filetype cpp
+$ ftdetecter --paths README.md --filetype cpp
 ```
 
 This can be called from a `vimscript`
@@ -28,7 +28,7 @@ function! set_special_filetype() abort
   let ft_binary = expand('~/bin/ftdetecter')
   if executable(ft_binary)
     " Search the current file for extra filetypes
-    let extra_ft = system(ft_binary . ' --path ' . expand('%:p') . ' --filetype ' . &filetype)
+    let extra_ft = system(ft_binary . ' --paths ' . expand('%:p') . ' --filetype ' . &filetype)
     if len(extra_ft) != 0
       " Set the filetype
       execute('setlocal filetype+=.' . extra_ft)
@@ -58,7 +58,8 @@ usage:
 where options are:
   -?, -h, --help               display usage information
   -f, --filetype <filetype>    What is the current filetype? E.g. cpp
-  -p, --path <path>            Path to the file being examined.
+  -p, --paths <paths>          Path(s) to the file(s) being examined. May be
+                               multiple separated by a comma (,).
 ```
 
 ## Build from source ##
