@@ -17,66 +17,22 @@ add_custom_target(
   )
 
 # Helper function
-function(setup_ctre_test ctre_test_target)
-  target_link_libraries(
-    ${ctre_test_target}
-    PRIVATE project_options project_warnings CONAN_PKG::CTRE)
-  target_include_directories(${ctre_test_target}
-                             PRIVATE ${CMAKE_SOURCE_DIR}/include)
-
-  add_dependencies(${ctre_test_target} gen_filepaths)
-  target_include_directories(${ctre_test_target} PRIVATE test_include)
+function(setup_test test_target)
+  include(Catch2Helpers)
+  # NOTE: Assumes the source of the target has the same name as the target dot
+  # cpp
+  create_catch2_test(TARGET
+                     ${test_target}
+                     SOURCES
+                     ${test_target}.cpp
+                     INCLUDE
+                     test_include
+                     LINK_LIBRARIES
+                     filetype_matcher)
+  add_dependencies(${test_target} gen_filepaths)
 endfunction()
 
-include(Catch2Helpers)
-create_catch2_test(TARGET
-                   catch2_match
-                   SOURCES
-                   catch2_match.cpp
-                   INCLUDE
-                   ${CMAKE_SOURCE_DIR}/include
-                   test_include
-                   LINK_LIBRARIES
-                   project_options
-                   project_warnings
-                   CONAN_PKG::CTRE)
-add_dependencies(catch2_match gen_filepaths)
-
-create_catch2_test(TARGET
-                   gtest_match
-                   SOURCES
-                   gtest_match.cpp
-                   INCLUDE
-                   ${CMAKE_SOURCE_DIR}/include
-                   test_include
-                   LINK_LIBRARIES
-                   project_options
-                   project_warnings
-                   CONAN_PKG::CTRE)
-add_dependencies(gtest_match gen_filepaths)
-
-create_catch2_test(TARGET
-                   benchmark_match
-                   SOURCES
-                   benchmark_match.cpp
-                   INCLUDE
-                   ${CMAKE_SOURCE_DIR}/include
-                   test_include
-                   LINK_LIBRARIES
-                   project_options
-                   project_warnings
-                   CONAN_PKG::CTRE)
-add_dependencies(benchmark_match gen_filepaths)
-
-create_catch2_test(TARGET
-                   unittest_match
-                   SOURCES
-                   unittest_match.cpp
-                   INCLUDE
-                   ${CMAKE_SOURCE_DIR}/include
-                   test_include
-                   LINK_LIBRARIES
-                   project_options
-                   project_warnings
-                   CONAN_PKG::CTRE)
-add_dependencies(unittest_match gen_filepaths)
+setup_test(catch2_match)
+setup_test(gtest_match)
+setup_test(benchmark_match)
+setup_test(unittest_match)

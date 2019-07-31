@@ -46,13 +46,8 @@ create_target(TARGET
               ftdetecter
               SOURCES
               src/ftdetecter.cpp
-              INCLUDE
-              include
               LINK_LIBRARIES
-              project_warnings
-              project_options
               CONAN_PKG::clara
-              CONAN_PKG::CTRE
               filetype_matcher)
 
 option(BUILD_TESTING "Build the testing tree" ON)

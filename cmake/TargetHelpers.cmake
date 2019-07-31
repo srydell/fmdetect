@@ -5,7 +5,7 @@ function(create_target)
 
   # Define the supported set of keywords
   set(prefix ARG)
-  set(noValues IS_LIBRARY)
+  set(noValues IS_LIBRARY PRIVATE_LIBS PRIVATE_INCLUDE)
   set(singleValues TARGET)
   set(multiValues SOURCES LINK_LIBRARIES INCLUDE)
   # Process the arguments passed in Can be used e.g. via ARG_TARGET
@@ -29,11 +29,19 @@ function(create_target)
   endif()
 
   if(ARG_INCLUDE)
-    target_include_directories(${ARG_TARGET} PRIVATE ${ARG_INCLUDE})
+    if(ARG_PRIVATE_INCLUDE)
+      target_include_directories(${ARG_TARGET} PRIVATE ${ARG_INCLUDE})
+    else()
+      target_include_directories(${ARG_TARGET} PUBLIC ${ARG_INCLUDE})
+    endif()
   endif()
 
   if(ARG_LINK_LIBRARIES)
-    target_link_libraries(${ARG_TARGET} PRIVATE ${ARG_LINK_LIBRARIES})
+    if(ARG_PRIVATE_LIBS)
+      target_link_libraries(${ARG_TARGET} PRIVATE ${ARG_LINK_LIBRARIES})
+    else()
+      target_link_libraries(${ARG_TARGET} PUBLIC ${ARG_LINK_LIBRARIES})
+    endif()
   endif()
 
   set_target_properties(${ARG_TARGET}
