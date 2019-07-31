@@ -4,7 +4,6 @@ find_package(Catch2 REQUIRED)
 if(NOT Catch2_FOUND)
   message(FATAL_ERROR "Catch2 not found")
 endif()
-# enable_testing()
 
 # Generate helpers for the tests
 find_package(Python REQUIRED)
@@ -30,9 +29,35 @@ function(setup_test test_target)
                      LINK_LIBRARIES
                      filetype_matcher)
   add_dependencies(${test_target} gen_filepaths)
+  add_test(NAME ${test_target} COMMAND ${test_target})
 endfunction()
 
+# Unittests
 setup_test(catch2_match)
 setup_test(gtest_match)
 setup_test(benchmark_match)
 setup_test(unittest_match)
+
+# Command line tests (relies on exit codes)
+add_test(NAME show_help COMMAND $<TARGET_FILE:ftdetecter> --help)
+add_test(NAME ftdetecter_single_file
+         COMMAND $<TARGET_FILE:ftdetecter>
+                 --paths
+                 ${CMAKE_SOURCE_DIR}/test/testfiles/gtest/sample1_unittest.cc
+                 --filetype
+                 cpp)
+add_test(
+  NAME ftdetecter_multiple_files
+  COMMAND
+    $<TARGET_FILE:ftdetecter>
+    --paths
+    ${CMAKE_SOURCE_DIR}/test/testfiles/gtest/sample1_unittest.cc,${CMAKE_SOURCE_DIR}/test/testfiles/gtest/sample2_unittest.cc
+    --filetype
+    cpp)
+add_test(NAME not_a_known_ft
+         COMMAND $<TARGET_FILE:ftdetecter>
+                 --paths
+                 ${CMAKE_SOURCE_DIR}/src/ftdetecter.cpp
+                 --filetype
+                 cpp)
+set_tests_properties(not_a_known_ft PROPERTIES WILL_FAIL TRUE)
