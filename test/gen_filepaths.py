@@ -91,12 +91,12 @@ def gen_filepaths():
     """Create and fill a header file with paths
     :returns: None
     """
-    pathlib.Path("test/test_include").mkdir(exist_ok=True)
-    with open("test/test_include/generated_filepaths.h", "w") as header:
+    pathlib.Path("test_include").mkdir(exist_ok=True)
+    with open("test_include/generated_filepaths.h", "w") as header:
         lines = []
         all_files = []
-        for test_dir in pathlib.Path("test/testfiles/").glob("*"):
-            test_files = [str(t) for t in pathlib.Path(test_dir).glob("*")]
+        for test_dir in pathlib.Path("testfiles").glob("*"):
+            test_files = [str(t.resolve()) for t in pathlib.Path(test_dir).glob("*")]
             all_files = concat_lists(all_files, test_files)
             test_name = test_dir.name
             lines += wrap_in_vector(test_name, test_files)
