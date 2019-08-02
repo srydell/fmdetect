@@ -18,5 +18,5 @@
 !cmake
 !include
 !src
-!test
+!tests
 test/test_include
