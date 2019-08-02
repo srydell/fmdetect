@@ -9,6 +9,7 @@
 # Files
 !.gitignore
 !CMakeLists.txt
+!LICENSE
 !README.md
 !conanfile.txt
 
