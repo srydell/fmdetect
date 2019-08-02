@@ -62,6 +62,29 @@ where options are:
                                multiple separated by a comma (,).
 ```
 
+## Supported filetypes ##
+
+This section is ordered as
+
+```yaml
+- The input of `--filetype`
+    - The detected filetype and the output on such detection
+```
+
+---
+
+```yaml
+- cpp
+    - catch2
+    - gtest
+    - benchmark
+- python
+    - unittest
+    - pytest
+```
+
+
+
 ## Build from source ##
 
 ### Prerequisites ###
