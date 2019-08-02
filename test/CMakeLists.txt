@@ -39,25 +39,25 @@ setup_test(benchmark_match)
 setup_test(unittest_match)
 
 # Command line tests (relies on exit codes)
-add_test(NAME show_help COMMAND $<TARGET_FILE:ftdetecter> --help)
-add_test(NAME ftdetecter_single_file
-         COMMAND $<TARGET_FILE:ftdetecter>
+add_test(NAME show_help COMMAND $<TARGET_FILE:ftdetector> --help)
+add_test(NAME ftdetector_single_file
+         COMMAND $<TARGET_FILE:ftdetector>
                  --paths
                  ${CMAKE_SOURCE_DIR}/test/testfiles/gtest/sample1_unittest.cc
                  --filetype
                  cpp)
 add_test(
-  NAME ftdetecter_multiple_files
+  NAME ftdetector_multiple_files
   COMMAND
-    $<TARGET_FILE:ftdetecter>
+    $<TARGET_FILE:ftdetector>
     --paths
     ${CMAKE_SOURCE_DIR}/test/testfiles/gtest/sample1_unittest.cc,${CMAKE_SOURCE_DIR}/test/testfiles/gtest/sample2_unittest.cc
     --filetype
     cpp)
 add_test(NAME not_a_known_ft
-         COMMAND $<TARGET_FILE:ftdetecter>
+         COMMAND $<TARGET_FILE:ftdetector>
                  --paths
-                 ${CMAKE_SOURCE_DIR}/src/ftdetecter.cpp
+                 ${CMAKE_SOURCE_DIR}/src/ftdetector.cpp
                  --filetype
                  cpp)
 set_tests_properties(not_a_known_ft PROPERTIES WILL_FAIL TRUE)

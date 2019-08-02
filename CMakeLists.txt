@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(ftdetecter VERSION 0.1 LANGUAGES CXX)
+project(ftdetector VERSION 0.1 LANGUAGES CXX)
 
 # Export compile flags to compile_commands.json database. Useful for linters and
 # autocompletion
@@ -43,9 +43,9 @@ create_target(TARGET
               CONAN_PKG::CTRE)
 
 create_target(TARGET
-              ftdetecter
+              ftdetector
               SOURCES
-              src/ftdetecter.cpp
+              src/ftdetector.cpp
               LINK_LIBRARIES
               CONAN_PKG::clara
               filetype_matcher)
