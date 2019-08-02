@@ -53,7 +53,7 @@ create_target(TARGET
 option(BUILD_TESTING "Build the testing tree" ON)
 if(BUILD_TESTING AND (PROJECT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR))
   enable_testing()
-  add_subdirectory(test)
+  add_subdirectory(tests)
 endif()
 
 option(BUILD_BENCHMARKS "Build the benchmarks" OFF)

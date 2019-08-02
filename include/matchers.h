@@ -35,10 +35,21 @@ static constexpr auto unittest0_pattern =
 
 static constexpr auto unittest1_pattern =
     ctll::fixed_string{"^from unittest import (.*)?$"};
+
+static constexpr auto pytest0_pattern =
+    ctll::fixed_string{"^import pytest( as (.*)?)?$"};
+
+static constexpr auto pytest1_pattern =
+    ctll::fixed_string{"^from pytest import (.*)?$"};
 } // namespace patterns
 
 constexpr bool isUnittest(std::string_view sv) noexcept {
 	return ctre::match<patterns::unittest0_pattern>(sv) ||
 	       ctre::match<patterns::unittest1_pattern>(sv);
+}
+
+constexpr bool isPytest(std::string_view sv) noexcept {
+	return ctre::match<patterns::pytest0_pattern>(sv) ||
+	       ctre::match<patterns::pytest1_pattern>(sv);
 }
 } // namespace python
