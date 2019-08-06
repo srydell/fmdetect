@@ -24,7 +24,7 @@ $ ftdetector --paths README.md --filetype cpp
 This can be called from a `vimscript`
 
 ```vim
-function! set_special_filetype() abort
+function! s:set_special_filetype() abort
   let ft_binary = expand('~/bin/ftdetector')
   if executable(ft_binary)
     " Search the current file for extra filetypes
@@ -42,13 +42,14 @@ augroup extra_filetypes
   " Look for and set extra filetypes.
   " Ex: Filetype = cpp
   "     This might set the filetype as 'cpp.catch2'
-  autocmd Filetype cpp call set_special_filetype()
+  autocmd Filetype cpp call s:set_special_filetype()
 augroup END
 
 ```
 
+For a more complete vim example, please see [vim_examples.md](vim_examples.md).
 
-You can always check the help output.
+The general usage can be seen with the `--help` flag.
 
 ```shell
 $ ftdetector --help
