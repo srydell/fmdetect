@@ -54,6 +54,6 @@ Now, whenever a new `cpp` file is created, it will check the files in the same d
 
 If you're using the [`vim-template` plugin](https://github.com/srydell/vim-template), this can be used to fill the new file with a dynamic skeleton for the detected framework:
 
-![vim-template](https://media.giphy.com/media/KHKJC0vYCcIEudUbHl/giphy.gif "vim-template")
+![vim-template](https://media.giphy.com/media/hStxOlws6zdjXFd3wQ/giphy.gif "vim-template")
 
 As you might be able to see, `ftdetector` found files using the `catch2` library in the same directory, and therefore the template associated with `catch2` was expanded.
