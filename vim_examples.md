@@ -1,6 +1,6 @@
 # Vim examples #
 
-To not make this document a thousand lines long I will assume some knowledge about how config files are read in vim and how functions are called. The vim documentation is excellent and if something is unclear you should try to read `:help <something>`.
+To not make this document a thousand lines long I will assume some knowledge about how config files are read in vim and how functions are called. That said, if you find any errors, please tell me.
 
 A more complex, but perhaps more realistic version of running `ftdetector` from vim would be to create a function that takes into account multiple input files and a variable initial filetype:
 
@@ -52,3 +52,8 @@ autocmd BufNewFile *.{cpp,cxx,cc} call s:check_for_similar_files()
 
 Now, whenever a new `cpp` file is created, it will check the files in the same directory for special filetypes and assume that the new file is of the same breed.
 
+If you're using the [`vim-template` plugin](https://github.com/srydell/vim-template), this can be used to fill the new file with a dynamic skeleton for the detected framework:
+
+![vim-template](https://media.giphy.com/media/KHKJC0vYCcIEudUbHl/giphy.gif "vim-template")
+
+As you might be able to see, `ftdetector` found files using the `catch2` library in the same directory, and therefore the template associated with `catch2` was expanded.
