@@ -40,25 +40,25 @@ setup_test(unittest_match)
 setup_test(pytest_match)
 
 # Command line tests (relies on exit codes)
-add_test(NAME show_help COMMAND $<TARGET_FILE:ftdetector> --help)
-add_test(NAME ftdetector_single_file
-         COMMAND $<TARGET_FILE:ftdetector>
+add_test(NAME show_help COMMAND $<TARGET_FILE:fmdetect> --help)
+add_test(NAME fmdetect_single_file
+         COMMAND $<TARGET_FILE:fmdetect>
                  --paths
                  ${CMAKE_SOURCE_DIR}/tests/testfiles/gtest/sample1_unittest.cc
                  --filetype
                  cpp)
 add_test(
-  NAME ftdetector_multiple_files
+  NAME fmdetect_multiple_files
   COMMAND
-    $<TARGET_FILE:ftdetector>
+    $<TARGET_FILE:fmdetect>
     --paths
     ${CMAKE_SOURCE_DIR}/tests/testfiles/gtest/sample1_unittest.cc,${CMAKE_SOURCE_DIR}/tests/testfiles/gtest/sample2_unittest.cc
     --filetype
     cpp)
 add_test(NAME not_a_known_ft
-         COMMAND $<TARGET_FILE:ftdetector>
+         COMMAND $<TARGET_FILE:fmdetect>
                  --paths
-                 ${CMAKE_SOURCE_DIR}/src/ftdetector.cpp
+                 ${CMAKE_SOURCE_DIR}/src/fmdetect.cpp
                  --filetype
                  cpp)
 set_tests_properties(not_a_known_ft PROPERTIES WILL_FAIL TRUE)

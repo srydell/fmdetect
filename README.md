@@ -1,6 +1,6 @@
-# ftdetector - A `constexpr` filetype matcher #
+# fmdetect - A `constexpr` framework detector #
 
-`ftdetector` is a dead simple and **very** fast way of matching contents of a file to a string, specifically meant for filetype detection. It can for example be used to identify usage of a library in a file to set specific options in an editor (example with vim below).
+`fmdetect` is a dead simple and **very** fast way of matching contents of a file to a string, specifically meant for framework detection. It can for example be used to identify usage of a library in a file to set specific options in an editor (example with vim below).
 
 ## Installation ##
 
@@ -10,22 +10,22 @@ If your OS is not in there, you can easily build it for your platform by followi
 
 ## Usage ##
 
-`ftdetector` is meant to be used from a script but can be used from the command line as well:
+`fmdetect` is meant to be used from a script but can be used from the command line as well:
 
 ```shell
 # Found usage of the catch2 library
-$ ftdetector --paths test/testfiles/catch2/010-TestCase.cpp --filetype cpp
+$ fmdetect --paths test/testfiles/catch2/010-TestCase.cpp --filetype cpp
 catch2
 
 # No output since there is nothing in README.md that matches any of the cpp regex values
-$ ftdetector --paths README.md --filetype cpp
+$ fmdetect --paths README.md --filetype cpp
 ```
 
 This can be called from a `vimscript`
 
 ```vim
 function! s:set_special_filetype() abort
-  let ft_binary = expand('~/bin/ftdetector')
+  let ft_binary = expand('~/bin/fmdetect')
   if executable(ft_binary)
     " Search the current file for extra filetypes
     let extra_ft = system(ft_binary . ' --paths ' . expand('%:p') . ' --filetype ' . &filetype)
@@ -52,9 +52,9 @@ For a more complete vim example, please see [vim_examples.md](vim_examples.md).
 The general usage can be seen with the `--help` flag.
 
 ```shell
-$ ftdetector --help
+$ fmdetect --help
 usage:
-  ftdetector  options
+  fmdetect  options
 
 where options are:
   -?, -h, --help               display usage information
@@ -97,11 +97,11 @@ This section is ordered as
 ### Building ###
 
 ```shell
-$ git clone https://github.com/srydell/ftdetector.git && cd ftdetector
+$ git clone https://github.com/srydell/fmdetect.git && cd fmdetect
 $ mkdir build
 $ cmake -S . -B build -D CMAKE_BUILD_TYPE=Release -D CMAKE_CXX_COMPILER=$(command -v clang++)
 $ cmake --build build
-$ cp build/bin/ftdetector <wherever you have binaries>
+$ cp build/bin/fmdetect <wherever you have binaries>
 ```
 
 ## Contributing ##
