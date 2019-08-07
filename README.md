@@ -47,6 +47,8 @@ augroup END
 
 ```
 
+Now whenever a `cpp` file is opened, `fmdetect` will check if the file uses any known frameworks. If `fmdetect` returns a non empty string, such as `catch2`, it will set the filetype to `cpp.catch2` allowing you to set filetype specific options for `catch2` in your configs.
+
 For a more complete vim example, please see [vim_examples.md](vim_examples.md).
 
 The general usage can be seen with the `--help` flag.
