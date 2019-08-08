@@ -37,10 +37,10 @@ function! s:set_special_filetype() abort
 endfunction
 
 
-augroup extra_filetypes
+augroup extra_framework_filetypes
   autocmd!
-  " Look for and set extra filetypes.
-  " Ex: Filetype = cpp
+  " Look for and set extra filetypes based on what framework is used in the file.
+  " Ex: Current filetype = cpp
   "     This might set the filetype as 'cpp.catch2'
   autocmd Filetype cpp call s:set_special_filetype()
 augroup END
@@ -65,13 +65,13 @@ where options are:
                                multiple separated by a comma (,).
 ```
 
-## Supported filetypes ##
+## Supported frameworks ##
 
 This section is ordered as
 
 ```yaml
 - The input of `--filetype`
-    - The detected filetype and the output on such detection
+    - The detected framework and the output on such detection
 ```
 
 ---
