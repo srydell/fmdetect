@@ -6,7 +6,7 @@ Lets start by defining a help function that will give us a nice interface to run
 " In file ~/.vim/autoload/fmdetect.vim
 
 function! fmdetect#run_fmdetect(paths, initialFiletype) abort
-  let fmdetect_binary = g:integrations_dir . '/bin/fmdetect'
+  let fmdetect_binary = '/path/to/fmdetect'
   " Allow multiple files to be read in one system call
   let parsed_paths = type(a:paths) == type([]) ? join(a:paths, ',') : a:paths
   if executable(fmdetect_binary)
