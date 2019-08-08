@@ -9,8 +9,8 @@
 #include <string_view>
 
 namespace Helpers {
-struct FiletypeMatcher {
-	FiletypeMatcher(std::string_view ft, decltype(cpp::isCatch2) &m)
+struct Matcher {
+	Matcher(std::string_view ft, decltype(cpp::isCatch2) &m)
 	    : m_filetype(std::string(ft)), m_isFiletype(m) {}
 
 	std::optional<std::string> operator()(std::string_view text) const {

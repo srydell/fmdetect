@@ -28,8 +28,8 @@ TEST_CASE("isGtest fails on simple string not matching correct include",
 
 TEST_CASE("Run over test files", "[isGtest]") {
 	std::string expected_ft = "gtest";
-	auto s = std::vector<Helpers::FiletypeMatcher>(
-	    {Helpers::FiletypeMatcher(expected_ft, cpp::isGtest)});
+	auto s = std::vector<Helpers::Matcher>(
+	    {Helpers::Matcher(expected_ft, cpp::isGtest)});
 
 	// Gtest files
 	for (auto &filename : testfiles::gtest) {

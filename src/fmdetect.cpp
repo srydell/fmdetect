@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+namespace {
 std::vector<std::string> parsePaths(const std::string &paths) {
 	std::vector<std::string> parsed;
 	std::string path;
@@ -14,6 +15,7 @@ std::vector<std::string> parsePaths(const std::string &paths) {
 	}
 	return parsed.empty() ? std::vector({paths}) : parsed;
 }
+} // namespace
 
 int main(int argc, char **argv) {
 	std::string preliminaryFiletype;
@@ -38,9 +40,9 @@ int main(int argc, char **argv) {
 	}
 
 	for (const auto &path : parsePaths(paths)) {
-		if (auto specialFiletype = SpecialFiletype::getSpecialFiletype(
-		        preliminaryFiletype, path)) {
-			std::cout << specialFiletype.value() << '\n';
+		if (auto foundFramework =
+		        FrameworkMatcher::getFrameworkUsed(preliminaryFiletype, path)) {
+			std::cout << foundFramework.value() << '\n';
 			return EXIT_SUCCESS;
 		}
 	}

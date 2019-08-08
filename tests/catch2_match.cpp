@@ -30,10 +30,9 @@ TEST_CASE("isCatch2 fails on simple string not matching correct include",
 }
 
 TEST_CASE("Run over test files", "[isCatch2]") {
-	using Helpers::FiletypeMatcher;
+	using Helpers::Matcher;
 	std::string expected_ft = "catch2";
-	auto s = std::vector<FiletypeMatcher>(
-	    {FiletypeMatcher(expected_ft, cpp::isCatch2)});
+	auto s = std::vector<Matcher>({Matcher(expected_ft, cpp::isCatch2)});
 
 	// Catch2 files
 	for (auto &filename : testfiles::catch2) {

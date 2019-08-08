@@ -6,23 +6,22 @@
 #include <string>
 #include <string_view>
 
-namespace SpecialFiletype {
-std::optional<std::string> getSpecialFiletype(std::string_view initialFiletype,
-                                              std::string_view filename) {
-	using Helpers::FiletypeMatcher;
+namespace FrameworkMatcher {
+std::optional<std::string> getFrameworkUsed(std::string_view initialFiletype,
+                                            std::string_view filename) {
+	using Helpers::Matcher;
 	if (initialFiletype == "cpp") {
-		auto possibleMatchers = std::array<FiletypeMatcher, 3>(
-		    {FiletypeMatcher("catch2", cpp::isCatch2),
-		     FiletypeMatcher("gtest", cpp::isGtest),
-		     FiletypeMatcher("benchmark", cpp::isBenchmark)});
+		auto possibleMatchers = std::array<Matcher, 3>(
+		    {Matcher("catch2", cpp::isCatch2), Matcher("gtest", cpp::isGtest),
+		     Matcher("benchmark", cpp::isBenchmark)});
 		return parseFile(filename, possibleMatchers);
 	} else if (initialFiletype == "python") {
-		auto possibleMatchers = std::array<FiletypeMatcher, 2>({
-		    FiletypeMatcher("unittest", python::isUnittest),
-		    FiletypeMatcher("pytest", python::isPytest),
+		auto possibleMatchers = std::array<Matcher, 2>({
+		    Matcher("unittest", python::isUnittest),
+		    Matcher("pytest", python::isPytest),
 		});
 		return parseFile(filename, possibleMatchers);
 	}
 	return {};
 }
-} // namespace SpecialFiletype
+} // namespace FrameworkMatcher

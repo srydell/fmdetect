@@ -26,10 +26,10 @@ TEST_CASE("isPytest fails on simple string not matching correct include",
 }
 
 TEST_CASE("Run over test files", "[isPytest]") {
-	using Helpers::FiletypeMatcher;
+	using Helpers::Matcher;
 	std::string expected_ft = "pytest";
-	auto matchers = std::vector<FiletypeMatcher>(
-	    {FiletypeMatcher(expected_ft, python::isPytest)});
+	auto matchers =
+	    std::vector<Matcher>({Matcher(expected_ft, python::isPytest)});
 
 	// Catch2 files
 	for (auto &filename : testfiles::catch2) {
