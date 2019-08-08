@@ -10,6 +10,8 @@ If your OS is not in there, you can easily build it for your platform by followi
 
 ## Usage ##
 
+For usage from an editor, please see [vim_examples.md](vim_examples.md).
+
 `fmdetect` is meant to be used from a script but can be used from the command line as well:
 
 ```shell
@@ -20,36 +22,6 @@ catch2
 # No output since there is nothing in README.md that matches any of the cpp regex values
 $ fmdetect --paths README.md --filetype cpp
 ```
-
-This can be called from a `vimscript`
-
-```vim
-function! s:set_special_filetype() abort
-  let ft_binary = expand('~/bin/fmdetect')
-  if executable(ft_binary)
-    " Search the current file for extra filetypes
-    let extra_ft = system(ft_binary . ' --paths ' . expand('%:p') . ' --filetype ' . &filetype)
-    if len(extra_ft) != 0
-      " Set the filetype
-      execute('setlocal filetype+=.' . extra_ft)
-    endif
-  endif
-endfunction
-
-
-augroup extra_framework_filetypes
-  autocmd!
-  " Look for and set extra filetypes based on what framework is used in the file.
-  " Ex: Current filetype = cpp
-  "     This might set the filetype as 'cpp.catch2'
-  autocmd Filetype cpp call s:set_special_filetype()
-augroup END
-
-```
-
-Now whenever a `cpp` file is opened, `fmdetect` will check if the file uses any known frameworks. If `fmdetect` returns a non empty string, such as `catch2`, it will set the filetype to `cpp.catch2` allowing you to set filetype specific options for `catch2` in your configs.
-
-For a more complete vim example, please see [vim_examples.md](vim_examples.md).
 
 The general usage can be seen with the `--help` flag.
 

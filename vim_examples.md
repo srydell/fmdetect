@@ -1,14 +1,14 @@
 # Vim examples #
 
-A more complex, but perhaps more realistic version of running `fmdetect` from vim would be to create a function that takes into account multiple input files and a variable initial filetype:
+Lets start by defining a help function that will give us a nice interface to run `fmdetect` from. Here is a function that takes into account multiple input files and a variable initial filetype:
 
 ```vim
 " In file ~/.vim/autoload/fmdetect.vim
 
-function! fmdetect#run_fmdetect(path, initialFiletype) abort
+function! fmdetect#run_fmdetect(paths, initialFiletype) abort
   let ft_binary = g:integrations_dir . '/bin/fmdetect'
   " Allow multiple files to be read in one system call
-  let parsed_paths = type(a:path) == type([]) ? join(a:path, ',') : a:path
+  let parsed_paths = type(a:paths) == type([]) ? join(a:paths, ',') : a:paths
   if executable(ft_binary)
     return system(ft_binary . ' --paths ' . parsed_paths . ' --filetype ' . a:initialFiletype)
   endif
@@ -18,9 +18,36 @@ endfunction
 
 This gives us a good ground to stand on. Onto the examples!
 
+## Setting an extra filetype based on the framework ##
+
+This can be called from a `vimscript`
+
+```vim
+function! s:set_framework_filetype() abort
+  " Search the current file for extra filetypes
+  let extra_ft = fmdetect#run_fmdetect(expand('%:p'), &filetype)
+  if len(extra_ft) != 0
+    " Set the filetype
+    execute('setlocal filetype+=.' . extra_ft)
+  endif
+endfunction
+
+
+augroup extra_framework_filetypes
+  autocmd!
+  " Look for and set extra filetypes based on what framework is used in the file.
+  " Ex: Current filetype = cpp
+  "     This might set the filetype as 'cpp.catch2'
+autocmd BufRead *.cpp,*.cc,*.cxx s:set_framework_filetype()
+augroup END
+
+```
+
+Now whenever a `cpp` file is opened, `fmdetect` will check if the file uses any known frameworks. If `fmdetect` returns a non empty string, such as `catch2`, it will set the filetype to `cpp.catch2` allowing you to set filetype specific options for `catch2` in your configs. This is especially useful for framework specific snippets!
+
 ## Finding the test framework for a new file ##
 
-I use different test frameworks at work and at home, leading to some differences in preferred configurations. If we could detect which framework is used, we could set a filetype based on that. We could then use the corresponding `ftplugin` to build separate configs while retaining the original filetype (say `cpp` or `python`). So, in `~/.vim/ftdetect/new_cpp.vim`:
+I use different test frameworks at work and at home, leading to some differences in preferred configurations. If we could detect which framework is used by reading the files in the same directory as the new file, we could set a filetype based on that. We could then use the corresponding `ftplugin` or `snippets` file to build separate configs while retaining the original filetype (say `cpp` or `python`). So, in `~/.vim/ftdetect/new_cpp.vim`:
 
 
 ```vim
