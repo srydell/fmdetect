@@ -15,7 +15,7 @@ For usage from an editor, please see [vim_examples.md](vim_examples.md).
 `fmdetect` is meant to be used from a script but can be used from the command line as well:
 
 ```shell
-# Found usage of the catch2 library
+# Found usage of the catch2 test library
 $ fmdetect --paths test/testfiles/catch2/010-TestCase.cpp --filetype cpp
 catch2
 
