@@ -113,3 +113,5 @@ Please make sure to update tests as appropriate.
 
 ## License ##
 [GPLv3](https://choosealicense.com/licenses/gpl-3.0/)
+
+**NOTE:** The license excludes the files in `tests/testfiles/*` since they are from third party code.
