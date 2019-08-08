@@ -37,7 +37,7 @@ augroup extra_framework_filetypes
   autocmd!
   " Look for and set extra filetypes based on what framework is used in the file.
   " Ex: Current filetype = cpp
-  "     This might set the filetype as 'cpp.catch2'
+  "     This might set the filetype to 'cpp.catch2'
 autocmd BufRead *.cpp,*.cc,*.cxx s:set_framework_filetype()
 augroup END
 
