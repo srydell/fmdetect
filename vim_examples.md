@@ -1,7 +1,5 @@
 # Vim examples #
 
-To not make this document a thousand lines long I will assume some knowledge about how config files are read in vim and how functions are called. That said, if you find any errors, please tell me.
-
 A more complex, but perhaps more realistic version of running `fmdetect` from vim would be to create a function that takes into account multiple input files and a variable initial filetype:
 
 ```vim
