@@ -31,10 +31,10 @@ include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
 include(TargetHelpers)
 
 create_target(TARGET
-              filetype_matcher
+              framework_matcher
               IS_LIBRARY
               SOURCES
-              src/filetype_matcher.cpp
+              src/framework_matcher.cpp
               INCLUDE
               include
               LINK_LIBRARIES
@@ -48,7 +48,7 @@ create_target(TARGET
               src/fmdetect.cpp
               LINK_LIBRARIES
               CONAN_PKG::clara
-              filetype_matcher)
+              framework_matcher)
 
 option(BUILD_TESTING "Build the testing tree" ON)
 if(BUILD_TESTING AND (PROJECT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR))

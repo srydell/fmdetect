@@ -27,7 +27,7 @@ function(setup_test test_target)
                      INCLUDE
                      test_include
                      LINK_LIBRARIES
-                     filetype_matcher)
+                     framework_matcher)
   add_dependencies(${test_target} gen_filepaths)
   add_test(NAME ${test_target} COMMAND ${test_target})
 endfunction()
