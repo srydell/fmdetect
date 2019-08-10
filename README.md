@@ -50,15 +50,13 @@ This section is ordered as
 
 ```yaml
 - cpp
-    - catch2
-    - gtest
-    - benchmark
+    - [catch2](https://github.com/catchorg/Catch2)
+    - [gtest](https://github.com/google/googletest)
+    - [benchmark](https://github.com/google/benchmark)
 - python
-    - unittest
-    - pytest
+    - [unittest](https://docs.python.org/3/library/unittest.html)
+    - [pytest](https://docs.pytest.org/en/latest/)
 ```
-
-
 
 ## Build from source ##
 
@@ -66,7 +64,7 @@ This section is ordered as
 
 * [`cmake`](https://cmake.org/download/)
 * [`conan`](https://docs.conan.io/en/latest/installation.html)
-* A recent version of `gcc` or `clang`
+* A recent version of `gcc` or `clang` that support `C++17`
 
 ### Building ###
 
