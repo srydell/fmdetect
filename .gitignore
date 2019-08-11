@@ -20,4 +20,3 @@
 !include
 !src
 !tests
-test/test_include
