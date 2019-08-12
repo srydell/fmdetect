@@ -56,8 +56,15 @@ matrix:
 
 before_install:
   - eval "${MATRIX_EVAL}"
+  - # Get a more recent version of CMake
+  - mkdir $HOME/usr
+  - export PATH="$HOME/usr/bin:$PATH"
+  - export CMAKE_INSTALL_SCRIPT=cmake-3.14.0-Linux-x86_64.sh
+  - wget https://github.com/Kitware/CMake/releases/download/v3.14.0/${CMAKE_INSTALL_SCRIPT}
+  - chmod +x ${CMAKE_INSTALL_SCRIPT}
+  - ./${CMAKE_INSTALL_SCRIPT} --prefix=$HOME/usr --exclude-subdir --skip-license
 
 script:
-  - cmake -H. -Bbuild -D CMAKE_BUILD_TYPE=Release
+  - cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release
   - cmake --build build
   - cd build && ctest
