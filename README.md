@@ -77,7 +77,13 @@ $ cp build/bin/fmdetect <wherever you have binaries>
 ```
 
 ## Contributing ##
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Pull requests are welcome.
+
+If you would like another framework to be added, you can open an issue with one (or more) of the following:
+
+* A description of how to include the framework. E.g. for `python` with `unittest`: `import unittest`
+* A suitable `regex` matching an identifier for that framework. Note that the matching is done line wise.
 
 Please make sure to update tests as appropriate.
 

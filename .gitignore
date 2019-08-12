@@ -21,3 +21,4 @@
 !include
 !src
 !tests
+tests/test_include

@@ -1,12 +1,63 @@
+dist: bionic
+sudo: false
 language: cpp
-- compiler: clang
-  addons:
-    apt:
-      sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-xenial-8']
-      packages: ['clang-8', 'g++-8']
-    env:
-      - CXX=clang++-8
+notifications:
+  email: false
+branches:
+  only:
+    - master
+
+matrix:
+  fast_finish: true
+  include:
+    - os: linux
+      compiler: gcc-8
+      env:
+        - COMPILER_NAME=gcc
+        - GCC_VERSION=8
+        - CC=gcc-8
+        - CXX=g++-8
+        - MATRIX_EVAL="CXX=g++-8 && CC=gcc-8"
+      cache:
+        apt: true
+      addons:
+        apt:
+          update: true
+          sources:
+            - sourceline: 'ppa:ubuntu-toolchain-r/test'
+          packages:
+            - gcc-8
+            - g++-8
+    - os: linux
+      compiler: clang-7
+      env:
+        - COMPILER_NAME=clang
+        - CXX=clang++-7
+        - CC=clang-7
+        - CLANG_VERSION=7
+        - MATRIX_EVAL="CXX=clang++-7 && CC=clang-7"
+      cache:
+        apt: true
+      addons:
+        apt:
+          update: true
+          sources:
+            - sourceline:  'ppa:ubuntu-toolchain-r/test'
+            - sourceline:  'deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-7 main'
+              key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+          packages:
+            - llvm-7-dev
+            - clang-7
+            - libstdc++-8-dev
+      before_install:
+        # Install conan
+        - wget https://dl.bintray.com/conan/installers/conan-ubuntu-64_1_18_1.deb
+        - sudo apt install ./conan-ubuntu-64_1_18_1.deb
+
+before_install:
+  - eval "${MATRIX_EVAL}"
+
 script:
-  - cmake -H. -Bbuild -DCMAKE_CXX_COMPILER=$(command -v g++-9)
+  - cmake -H. -Bbuild -D CMAKE_BUILD_TYPE=Release
   - cmake --build build
   - cd build && ctest
