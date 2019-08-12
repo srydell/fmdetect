@@ -49,13 +49,10 @@ matrix:
             - llvm-7-dev
             - clang-7
             - libstdc++-8-dev
-      before_install:
-        # Install conan
-        - wget https://dl.bintray.com/conan/installers/conan-ubuntu-64_1_18_1.deb
-        - sudo apt install ./conan-ubuntu-64_1_18_1.deb
 
 before_install:
   - eval "${MATRIX_EVAL}"
+  - pip install --user conan cmake
   - # Get a more recent version of CMake
   - mkdir $HOME/usr
   - export PATH="$HOME/usr/bin:$PATH"
