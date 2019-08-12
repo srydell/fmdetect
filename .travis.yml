@@ -1,5 +1,4 @@
 dist: bionic
-sudo: false
 language: cpp
 notifications:
   email: false
@@ -29,13 +28,13 @@ matrix:
             - gcc-8
             - g++-8
     - os: linux
-      compiler: clang-7
+      compiler: clang-8
       env:
         - COMPILER_NAME=clang
-        - CXX=clang++-7
-        - CC=clang-7
-        - CLANG_VERSION=7
-        - MATRIX_EVAL="CXX=clang++-7 && CC=clang-7"
+        - CXX=clang++-8
+        - CC=clang-8
+        - CLANG_VERSION=8
+        - MATRIX_EVAL="CXX=clang++-8 && CC=clang-8"
       cache:
         apt: true
       addons:
@@ -43,11 +42,11 @@ matrix:
           update: true
           sources:
             - sourceline:  'ppa:ubuntu-toolchain-r/test'
-            - sourceline:  'deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-7 main'
+            - sourceline:  'deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-8 main'
               key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
           packages:
-            - llvm-7-dev
-            - clang-7
+            - llvm-8-dev
+            - clang-8
             - libstdc++-8-dev
 
 before_install:
