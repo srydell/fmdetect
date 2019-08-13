@@ -34,7 +34,8 @@ matrix:
         - CXX=clang++-8
         - CC=clang-8
         - CLANG_VERSION=8
-        - MATRIX_EVAL="CXX=clang++-8 && CC=clang-8"
+        - EXTRA_CMAKE_ARGS='-DLIBCPP=FALSE'
+        - MATRIX_EVAL="CXX=clang++-8 && CC=clang-8 && EXTRA_CMAKE_ARGS='-DLIBCPP=FALSE'"
       cache:
         apt: true
       addons:
@@ -61,6 +62,6 @@ before_install:
   - ./${CMAKE_INSTALL_SCRIPT} --prefix=$HOME/usr --exclude-subdir --skip-license
 
 script:
-  - cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release
+  - cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release ${EXTRA_CMAKE_ARGS}
   - cmake --build build
   - cd build && ctest
