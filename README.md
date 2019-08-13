@@ -1,5 +1,7 @@
 # fmdetect - A `constexpr` framework detector #
 
+[![Build Status](https://travis-ci.org/srydell/fmdetect.svg?branch=master)](https://travis-ci.org/srydell/fmdetect)
+
 `fmdetect` is a dead simple and **very** fast way of matching contents of a file to a string, specifically meant for framework detection. It can for example be used to identify usage of a library in a file to set specific options in an editor (example with vim below).
 
 ## Installation ##
