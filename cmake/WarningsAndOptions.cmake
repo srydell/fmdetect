@@ -36,7 +36,7 @@ if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
 else()
   # Either gcc or Clang
 
-  option(LIBCPP "Build with libc++" TRUE)
+  option(LIBCPP "Build with libc++" FALSE)
   option(ENABLE_COVERAGE "Enable coverage reporting for gcc/clang" FALSE)
   option(ENABLE_ASAN "Enable address sanitizer" FALSE)
 
