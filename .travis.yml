@@ -62,6 +62,6 @@ before_install:
   - ./${CMAKE_INSTALL_SCRIPT} --prefix=$HOME/usr --exclude-subdir --skip-license
 
 script:
-  - cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release ${EXTRA_CMAKE_ARGS}
+  - cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release -DENABLE_TESTING=ON -DENABLE_BENCHMARKING=ON ${EXTRA_CMAKE_ARGS}
   - cmake --build build
   - cd build && ctest

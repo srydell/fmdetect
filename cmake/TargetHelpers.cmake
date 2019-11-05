@@ -5,9 +5,15 @@ function(create_target)
 
   # Define the supported set of keywords
   set(prefix ARG)
-  set(noValues IS_LIBRARY PRIVATE_LIBS PRIVATE_INCLUDE)
+  set(noValues IS_LIBRARY)
   set(singleValues TARGET)
-  set(multiValues SOURCES LINK_LIBRARIES INCLUDE)
+  set(multiValues
+      SOURCES
+      INCLUDE
+      PRIVATE_INCLUDE
+      LINK_LIBRARIES
+      PRIVATE_LINK_LIBRARIES)
+
   # Process the arguments passed in Can be used e.g. via ARG_TARGET
   cmake_parse_arguments(${prefix}
                         "${noValues}"
@@ -29,19 +35,19 @@ function(create_target)
   endif()
 
   if(ARG_INCLUDE)
-    if(ARG_PRIVATE_INCLUDE)
-      target_include_directories(${ARG_TARGET} PRIVATE ${ARG_INCLUDE})
-    else()
-      target_include_directories(${ARG_TARGET} PUBLIC ${ARG_INCLUDE})
-    endif()
+    target_include_directories(${ARG_TARGET} PUBLIC ${ARG_INCLUDE})
+  endif()
+
+  if(ARG_PRIVATE_INCLUDE)
+    target_include_directories(${ARG_TARGET} PRIVATE ${ARG_INCLUDE})
   endif()
 
   if(ARG_LINK_LIBRARIES)
-    if(ARG_PRIVATE_LIBS)
-      target_link_libraries(${ARG_TARGET} PRIVATE ${ARG_LINK_LIBRARIES})
-    else()
-      target_link_libraries(${ARG_TARGET} PUBLIC ${ARG_LINK_LIBRARIES})
-    endif()
+    target_link_libraries(${ARG_TARGET} PUBLIC ${ARG_LINK_LIBRARIES})
+  endif()
+
+  if(ARG_PRIVATE_LINK_LIBRARIES)
+    target_link_libraries(${ARG_TARGET} PRIVATE ${ARG_LINK_LIBRARIES})
   endif()
 
   set_target_properties(${ARG_TARGET}

@@ -50,13 +50,15 @@ create_target(TARGET
               CONAN_PKG::clara
               framework_matcher)
 
-option(BUILD_TESTING "Build the testing tree" ON)
-if(BUILD_TESTING AND (PROJECT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR))
-  enable_testing()
-  add_subdirectory(tests)
-endif()
+if(PROJECT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
+  option(ENABLE_TESTING "Build the testing tree" OFF)
+  if(ENABLE_TESTING)
+    enable_testing()
+    add_subdirectory(tests)
+  endif()
 
-option(BUILD_BENCHMARKS "Build the benchmarks" OFF)
-if(BUILD_BENCHMARKS AND (PROJECT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR))
-  # TODO: Add benchmarks
+  option(ENABLE_BENCHMARKS "Build the benchmarks" OFF)
+  if(ENABLE_BENCHMARKS)
+    # TODO: Add benchmarks
+  endif()
 endif()
