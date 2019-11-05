@@ -9,6 +9,12 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Add custom scripts
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
+# Use ccache if available
+find_program(CCACHE ccache)
+if(CCACHE)
+  set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE})
+endif()
+
 # Define project_warnings and project_options targets
 include(WarningsAndOptions)
 
@@ -34,7 +40,7 @@ create_target(TARGET
               framework_matcher
               IS_LIBRARY
               SOURCES
-              src/framework_matcher.cpp
+              src/FrameworkMatcher/framework_matcher.cpp
               INCLUDE
               include
               LINK_LIBRARIES
