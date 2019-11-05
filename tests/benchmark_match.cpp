@@ -1,34 +1,38 @@
 #include "Helpers/matcher_helpers.h"
+#include "Matchers/Cpp/matchers.h"
 #include "generated_filepaths.h"
-#include "matchers.h"
 #include <catch2/catch.hpp>
 #include <vector>
 
 TEST_CASE("isBenchmark finds simple string versions of include",
           "[isBenchmark]") {
-	REQUIRE(cpp::isBenchmark("#include <benchmark/benchmark.h>"));
-	REQUIRE(cpp::isBenchmark("#include<benchmark/benchmark.h>"));
-	REQUIRE(cpp::isBenchmark("#include\"benchmark/benchmark.h>"));
-	REQUIRE(cpp::isBenchmark("#include<benchmark/benchmark.h\""));
-	REQUIRE(cpp::isBenchmark("#include\"benchmark/benchmark.h\""));
-	REQUIRE(cpp::isBenchmark("#include\"benchmark/benchmark.h\"     "));
-	REQUIRE(cpp::isBenchmark("#include\"benchmark/benchmark.h\"	   "));
+	using Matchers::Cpp::isBenchmark;
+	REQUIRE(isBenchmark("#include <benchmark/benchmark.h>"));
+	REQUIRE(isBenchmark("#include<benchmark/benchmark.h>"));
+	REQUIRE(isBenchmark("#include\"benchmark/benchmark.h>"));
+	REQUIRE(isBenchmark("#include<benchmark/benchmark.h\""));
+	REQUIRE(isBenchmark("#include\"benchmark/benchmark.h\""));
+	REQUIRE(isBenchmark("#include\"benchmark/benchmark.h\"     "));
+	REQUIRE(isBenchmark("#include\"benchmark/benchmark.h\"	   "));
 }
 
 TEST_CASE("isBenchmark fails on simple string not matching correct include",
           "[isBenchmark]") {
-	REQUIRE_FALSE(cpp::isBenchmark("#include <benchmark/benchmark.h >"));
-	REQUIRE_FALSE(cpp::isBenchmark("#include<catch2/catch.h>"));
-	REQUIRE_FALSE(cpp::isBenchmark("#include\"catch/catch.hpp>"));
-	REQUIRE_FALSE(cpp::isBenchmark("#include\"something_else.hpp\""));
-	REQUIRE_FALSE(cpp::isBenchmark("..fdashjkfhewuiqprhjksdalf"));
-	REQUIRE_FALSE(cpp::isBenchmark("Jul 18, 2019"));
+	using Matchers::Cpp::isBenchmark;
+	REQUIRE_FALSE(isBenchmark("#include <benchmark/benchmark.h >"));
+	REQUIRE_FALSE(isBenchmark("#include<catch2/catch.h>"));
+	REQUIRE_FALSE(isBenchmark("#include\"catch/catch.hpp>"));
+	REQUIRE_FALSE(isBenchmark("#include\"something_else.hpp\""));
+	REQUIRE_FALSE(isBenchmark("..fdashjkfhewuiqprhjksdalf"));
+	REQUIRE_FALSE(isBenchmark("Jul 18, 2019"));
 }
 
 TEST_CASE("Run over test files", "[isBenchmark]") {
+	using Matchers::Cpp::isBenchmark;
+
 	std::string expected_ft = "benchmark";
-	auto matchers = std::vector<Helpers::Matcher<decltype(cpp::isCatch2)>>(
-	    {Helpers::Matcher(expected_ft, cpp::isBenchmark)});
+	auto matchers = std::vector<Helpers::Matcher<decltype(isBenchmark)>>(
+	    {Helpers::Matcher(expected_ft, isBenchmark)});
 
 	// Benchmark files
 	for (auto &filename : testfiles::benchmark) {

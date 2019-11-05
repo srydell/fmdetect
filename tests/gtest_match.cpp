@@ -1,35 +1,38 @@
 #include "Helpers/matcher_helpers.h"
+#include "Matchers/Cpp/matchers.h"
 #include "generated_filepaths.h"
-#include "matchers.h"
 #include <catch2/catch.hpp>
 
 TEST_CASE("isGtest finds simple string versions of include", "[isGtest]") {
-	REQUIRE(cpp::isGtest("#include <gtest/gtest.h>"));
-	REQUIRE(cpp::isGtest("#include<gtest/gtest.h>"));
-	REQUIRE(cpp::isGtest("#include\"gtest/gtest.h>"));
-	REQUIRE(cpp::isGtest("#include<gtest/gtest.h\""));
-	REQUIRE(cpp::isGtest("#include\"gtest/gtest.h\""));
-	REQUIRE(cpp::isGtest("#include\"gtest/gtest.h\"     "));
-	REQUIRE(cpp::isGtest("#include\"gtest/gtest.h\"	   "));
+	using Matchers::Cpp::isGtest;
+	REQUIRE(isGtest("#include <gtest/gtest.h>"));
+	REQUIRE(isGtest("#include<gtest/gtest.h>"));
+	REQUIRE(isGtest("#include\"gtest/gtest.h>"));
+	REQUIRE(isGtest("#include<gtest/gtest.h\""));
+	REQUIRE(isGtest("#include\"gtest/gtest.h\""));
+	REQUIRE(isGtest("#include\"gtest/gtest.h\"     "));
+	REQUIRE(isGtest("#include\"gtest/gtest.h\"	   "));
 }
 
 TEST_CASE("isGtest fails on simple string not matching correct include",
           "[isGtest]") {
+	using Matchers::Cpp::isGtest;
 	// Added space
-	REQUIRE_FALSE(cpp::isGtest("#include <gtest/gtest.h >"));
+	REQUIRE_FALSE(isGtest("#include <gtest/gtest.h >"));
 	// .h -> .hpp
-	REQUIRE_FALSE(cpp::isGtest("#include<gtest/gtest.hpp>"));
+	REQUIRE_FALSE(isGtest("#include<gtest/gtest.hpp>"));
 	// Not gtest
-	REQUIRE_FALSE(cpp::isGtest("#include\"something_else.h\""));
+	REQUIRE_FALSE(isGtest("#include\"something_else.h\""));
 	// 'Random' letters
-	REQUIRE_FALSE(cpp::isGtest("..fdashjkfhewuiqprhjksdalf"));
-	REQUIRE_FALSE(cpp::isGtest("Jul 18, 2019"));
+	REQUIRE_FALSE(isGtest("..fdashjkfhewuiqprhjksdalf"));
+	REQUIRE_FALSE(isGtest("Jul 18, 2019"));
 }
 
 TEST_CASE("Run over test files", "[isGtest]") {
+	using Matchers::Cpp::isGtest;
 	std::string expected_ft = "gtest";
-	auto s = std::vector<Helpers::Matcher<decltype(cpp::isCatch2)>>(
-	    {Helpers::Matcher(expected_ft, cpp::isGtest)});
+	auto s = std::vector<Helpers::Matcher<decltype(isGtest)>>(
+	    {Helpers::Matcher(expected_ft, isGtest)});
 
 	// Gtest files
 	for (auto &filename : testfiles::gtest) {
