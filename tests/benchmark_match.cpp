@@ -27,7 +27,7 @@ TEST_CASE("isBenchmark fails on simple string not matching correct include",
 
 TEST_CASE("Run over test files", "[isBenchmark]") {
 	std::string expected_ft = "benchmark";
-	auto matchers = std::vector<Helpers::Matcher>(
+	auto matchers = std::vector<Helpers::Matcher<decltype(cpp::isCatch2)>>(
 	    {Helpers::Matcher(expected_ft, cpp::isBenchmark)});
 
 	// Benchmark files

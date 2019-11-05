@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ctre.hpp"
-#include "matchers.h"
 #include <fstream>
 #include <iostream>
 #include <optional>
@@ -9,8 +8,9 @@
 #include <string_view>
 
 namespace Helpers {
+template <typename MatchFunction>
 struct Matcher {
-	Matcher(std::string_view ft, decltype(cpp::isCatch2) &m)
+	Matcher(std::string_view ft, MatchFunction& m)
 	    : m_filetype(std::string(ft)), m_isFiletype(m) {}
 
 	std::optional<std::string> operator()(std::string_view text) const {
@@ -21,7 +21,7 @@ struct Matcher {
 	}
 
 	std::string m_filetype;
-	decltype(cpp::isCatch2) &m_isFiletype;
+	MatchFunction& m_isFiletype;
 };
 
 template <typename MatchFunctions>
