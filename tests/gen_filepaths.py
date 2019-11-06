@@ -75,35 +75,27 @@ def wrap_in_namespace(namespace, lines):
     return lines
 
 
-def concat_lists(list0, list1):
-    """Return concatenated version of the two lists
-
-    :list0: List - The first in the new list
-    :list1: List - The last in the new list
-    :returns: List - Concatenated list
-    """
-    for item in list1:
-        list0.append(item)
-    return list0
-
-
 def gen_filepaths():
     """Create and fill a header file with paths
     :returns: None
     """
-    pathlib.Path("test_include").mkdir(exist_ok=True)
-    with open("test_include/generated_filepaths.h", "w") as header:
-        lines = []
+    path = pathlib.Path("test_include")
+    path.mkdir(exist_ok=True)
+    with open(path / "generated_filepaths.h", "w") as header:
+        end_file_contents = []
         all_files = []
         for test_dir in pathlib.Path("testfiles").glob("*"):
             test_files = [str(t.resolve()) for t in pathlib.Path(test_dir).glob("*")]
-            all_files = concat_lists(all_files, test_files)
             test_name = test_dir.name
-            lines += wrap_in_vector(test_name, test_files)
-        lines += wrap_in_vector("all_files", all_files)
-        lines = wrap_in_namespace("testfiles", lines)
-        lines = add_includes(["vector", "string"], lines)
-        header.writelines(lines)
+            end_file_contents += wrap_in_vector(test_name, test_files)
+            all_files = all_files + test_files
+
+        # Add a final all_files vector
+        end_file_contents += wrap_in_vector("all_files", all_files)
+        end_file_contents = wrap_in_namespace("testfiles", end_file_contents)
+        end_file_contents = add_includes(["vector", "string"], end_file_contents)
+
+        header.writelines(end_file_contents)
 
 
 if __name__ == "__main__":
