@@ -56,7 +56,7 @@ This section is ordered as
     - [gtest](https://github.com/google/googletest)
     - [benchmark](https://github.com/google/benchmark)
 - Elixir
-    - [ExUnit](https://hexdocs.pm/ex_unit/ExUnit.html)
+    - [exunit](https://hexdocs.pm/ex_unit/ExUnit.html)
 - python
     - [unittest](https://docs.python.org/3/library/unittest.html)
     - [pytest](https://docs.pytest.org/en/latest/)
