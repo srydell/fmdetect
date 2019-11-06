@@ -33,11 +33,12 @@ function(setup_test test_target)
 endfunction()
 
 # Unittests
-setup_test(catch2_match)
-setup_test(gtest_match)
 setup_test(benchmark_match)
-setup_test(unittest_match)
+setup_test(catch2_match)
+setup_test(exunit_match)
+setup_test(gtest_match)
 setup_test(pytest_match)
+setup_test(unittest_match)
 
 # Command line tests (relies on exit codes)
 add_test(NAME show_help COMMAND $<TARGET_FILE:fmdetect> --help)
