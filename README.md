@@ -50,7 +50,7 @@ This section is ordered as
 
 ---
 
-```
+
 - cpp
     - [catch2](https://github.com/catchorg/Catch2)
     - [gtest](https://github.com/google/googletest)
@@ -60,7 +60,6 @@ This section is ordered as
 - python
     - [unittest](https://docs.python.org/3/library/unittest.html)
     - [pytest](https://docs.pytest.org/en/latest/)
-```
 
 ## Build from source ##
 
