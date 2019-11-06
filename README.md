@@ -18,7 +18,7 @@ For usage from an editor, please see [vim_examples.md](vim_examples.md).
 
 ```shell
 # Found usage of the catch2 test library
-$ fmdetect --paths test/testfiles/catch2/010-TestCase.cpp --filetype cpp
+$ fmdetect --paths tests/testfiles/catch2/010-TestCase.cpp --filetype cpp
 catch2
 
 # No output since there is nothing in README.md that matches any of the cpp regex values
@@ -50,11 +50,13 @@ This section is ordered as
 
 ---
 
-```yaml
+```
 - cpp
     - [catch2](https://github.com/catchorg/Catch2)
     - [gtest](https://github.com/google/googletest)
     - [benchmark](https://github.com/google/benchmark)
+- Elixir
+    - [ExUnit](https://hexdocs.pm/ex_unit/ExUnit.html)
 - python
     - [unittest](https://docs.python.org/3/library/unittest.html)
     - [pytest](https://docs.pytest.org/en/latest/)
