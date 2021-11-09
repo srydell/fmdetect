@@ -1,0 +1,24 @@
+name: Windows
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      VCVARS: C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build the release tar.xz package
+      if: github.ref == 'refs/heads/master'
+      shell: cmd
+      run: |
+        call "%VCVARS%"
+        where cpack || true
+        cpack --version || true
+

@@ -17,6 +17,7 @@
 !vim_examples.md
 
 # Directories
+!.github
 !bin
 !cmake
 !include
